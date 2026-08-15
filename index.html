@@ -1,151 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RION SHOP</title>
+<title>RION SHOP | Luxury Store</title>
+
+<!-- Luxury Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================
+   BASIC
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
-    font-family:Georgia, "Times New Roman", serif;
-    background:#080808;
-    color:white;
+html{
+    scroll-behavior:smooth;
 }
 
-/* Loading Animation */
+body{
+    background:#050505;
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea{
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* =========================
+   LOADER
+========================= */
+
 #loader{
     position:fixed;
     inset:0;
-    background:#080808;
+    background:
+        radial-gradient(circle at center,#1a1405 0%,#080808 45%,#020202 100%);
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:9999;
-    animation:hideLoader 1s ease 2.5s forwards;
+    z-index:999999;
+    transition:1s;
 }
 
-.loader-box{
+.loader-content{
     text-align:center;
-    animation:zoom 1.5s ease infinite alternate;
 }
 
-.loader-box h1{
-    font-size:38px;
-    letter-spacing:5px;
+.logo-animation{
+    width:140px;
+    height:140px;
+    border:2px solid #d4af37;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    margin:auto;
+    animation:logoRotate 5s linear infinite;
+    box-shadow:
+        0 0 10px #d4af37,
+        0 0 35px rgba(212,175,55,.3);
+}
+
+.logo-animation:before{
+    content:"";
+    position:absolute;
+    width:112px;
+    height:112px;
+    border:1px solid #d4af37;
+    border-radius:50%;
+}
+
+.logo-animation span{
+    font-family:'Cinzel',serif;
+    font-size:43px;
+    font-weight:800;
+    color:#d4af37;
+    animation:logoText 1.5s ease-in-out infinite alternate;
+}
+
+.loader-title{
+    margin-top:22px;
+    font-family:'Cinzel',serif;
+    font-size:31px;
+    letter-spacing:7px;
     color:#d4af37;
 }
 
-.loader-box p{
-    margin-top:10px;
-    color:#aaa;
+.loader-sub{
+    color:#999;
+    letter-spacing:4px;
+    font-size:11px;
+    margin-top:8px;
+}
+
+.loader-line{
+    width:220px;
+    height:3px;
+    background:#222;
+    margin:25px auto 0;
+    overflow:hidden;
+    border-radius:10px;
+}
+
+.loader-line:after{
+    content:"";
+    display:block;
+    width:50%;
+    height:100%;
+    background:#d4af37;
+    animation:loading 2s infinite;
+}
+
+@keyframes logoRotate{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes logoText{
+    from{
+        transform:scale(.9);
+    }
+    to{
+        transform:scale(1.1);
+    }
+}
+
+@keyframes loading{
+    from{
+        transform:translateX(-100%);
+    }
+    to{
+        transform:translateX(220%);
+    }
+}
+
+body.loaded #loader{
+    opacity:0;
+    visibility:hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 5%;
+
+    background:rgba(5,5,5,.92);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(212,175,55,.25);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-logo{
+    width:48px;
+    height:48px;
+
+    border:1px solid #d4af37;
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#d4af37;
+    font-family:'Cinzel',serif;
+    font-weight:bold;
+    font-size:17px;
+
+    box-shadow:0 0 15px rgba(212,175,55,.2);
+}
+
+.brand-name{
+    font-family:'Cinzel',serif;
+    color:#d4af37;
+    font-size:20px;
+    font-weight:700;
     letter-spacing:3px;
 }
 
-@keyframes zoom{
-    from{transform:scale(.9);opacity:.5;}
-    to{transform:scale(1.05);opacity:1;}
-}
-
-@keyframes hideLoader{
-    to{
-        opacity:0;
-        visibility:hidden;
-    }
-}
-
-/* Header */
-header{
-    text-align:center;
-    padding:30px 15px 20px;
-    background:linear-gradient(180deg,#151515,#090909);
-    border-bottom:1px solid #333;
-}
-
-header h1{
-    font-size:35px;
-    letter-spacing:4px;
-    color:#d4af37;
-    animation:fadeDown 1.2s ease;
-}
-
-header p{
-    margin-top:8px;
-    color:#aaa;
+.brand-small{
+    color:#777;
+    font-size:9px;
     letter-spacing:2px;
 }
 
-@keyframes fadeDown{
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ccc;
+    text-decoration:none;
+    font-size:13px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#d4af37;
+}
+
+.menu-btn{
+    display:none;
+    font-size:25px;
+    color:#d4af37;
+    cursor:pointer;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:650px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+    background:
+        radial-gradient(circle at 50% 20%,
+        rgba(212,175,55,.14),
+        transparent 35%),
+        linear-gradient(135deg,#111,#050505 60%,#100d05);
+
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(212,175,55,.12);
+    border-radius:50%;
+    animation:heroCircle 10s linear infinite;
+}
+
+@keyframes heroCircle{
     from{
-        opacity:0;
-        transform:translateY(-30px);
+        transform:rotate(0deg) scale(1);
     }
     to{
-        opacity:1;
-        transform:translateY(0);
+        transform:rotate(360deg) scale(1.2);
     }
 }
 
-/* Search */
-.search-area{
-    padding:20px 15px;
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.welcome{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid #d4af37;
+    border-radius:30px;
+    color:#d4af37;
+    font-size:11px;
+    letter-spacing:3px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-family:'Cinzel',serif;
+    font-size:clamp(42px,8vw,85px);
+    line-height:1.05;
+    letter-spacing:3px;
+}
+
+.hero h1 span{
+    color:#d4af37;
+}
+
+.hero p{
+    color:#aaa;
+    margin:20px auto;
+    max-width:600px;
+    font-size:15px;
+}
+
+.hero-buttons{
     display:flex;
     justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:30px;
 }
 
-#search{
-    width:100%;
-    max-width:550px;
-    padding:15px 20px;
+.gold-btn{
+    padding:14px 30px;
+    border:none;
     border-radius:30px;
+    background:linear-gradient(90deg,#b8860b,#d4af37,#f4d76d);
+    color:#080808;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gold-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(212,175,55,.25);
+}
+
+.dark-btn{
+    padding:13px 30px;
     border:1px solid #d4af37;
+    border-radius:30px;
+    background:transparent;
+    color:#d4af37;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.dark-btn:hover{
+    background:#d4af37;
+    color:#000;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-section{
+    max-width:700px;
+    margin:-35px auto 50px;
+    padding:0 20px;
+    position:relative;
+    z-index:10;
+}
+
+.search{
+    width:100%;
+    padding:18px 25px;
+
+    border-radius:40px;
+    border:1px solid #d4af37;
+
     background:#111;
     color:white;
+
     outline:none;
-    font-size:16px;
+
+    font-size:15px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
 }
 
-#search::placeholder{
-    color:#888;
+.search::placeholder{
+    color:#777;
 }
 
-/* Products */
+.search:focus{
+    box-shadow:
+        0 0 25px rgba(212,175,55,.15),
+        0 15px 40px rgba(0,0,0,.6);
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title{
+    text-align:center;
+    margin:30px auto 35px;
+}
+
+.section-title span{
+    color:#d4af37;
+    font-size:11px;
+    letter-spacing:4px;
+}
+
+.section-title h2{
+    font-family:'Cinzel',serif;
+    font-size:32px;
+    margin-top:7px;
+}
+
+.section-title p{
+    color:#777;
+    font-size:13px;
+    margin-top:7px;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
 .products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:25px;
-    padding:25px;
-    max-width:1200px;
+    width:92%;
+    max-width:1250px;
     margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+
+    padding-bottom:80px;
 }
 
 .product{
     background:#111;
-    border:1px solid #292929;
-    border-radius:15px;
+    border:1px solid #252525;
+    border-radius:18px;
     overflow:hidden;
+
     transition:.4s;
-    animation:productShow 1s ease;
+
+    animation:productShow .8s ease both;
 }
 
 .product:hover{
     transform:translateY(-8px);
     border-color:#d4af37;
-    box-shadow:0 10px 30px rgba(212,175,55,.2);
+    box-shadow:0 20px 45px rgba(0,0,0,.65);
 }
 
-.product img{
-    width:100%;
-    height:280px;
-    object-fit:contain;
+.product-image{
+    height:300px;
     background:#fff;
-    display:block;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transition:.5s;
+}
+
+.product:hover img{
+    transform:scale(1.06);
 }
 
 .product-info{
@@ -153,15 +490,44 @@ header p{
     text-align:center;
 }
 
-.product-info h2{
-    font-size:20px;
-    margin-bottom:10px;
+.product-info h3{
+    font-family:'Cinzel',serif;
+    font-size:16px;
+    margin-bottom:7px;
 }
 
 .price{
     color:#d4af37;
-    font-size:19px;
-    font-weight:bold;
+    font-size:20px;
+    font-weight:700;
+}
+
+.rating{
+    color:#d4af37;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.order-btn{
+    width:100%;
+    margin-top:15px;
+    padding:13px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#d4af37;
+    color:#050505;
+
+    font-weight:700;
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.order-btn:hover{
+    background:#f2d05b;
+    transform:scale(1.03);
 }
 
 @keyframes productShow{
@@ -169,121 +535,1392 @@ header p{
         opacity:0;
         transform:translateY(30px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
 }
 
-.no-result{
+
+/* =========================
+   BENEFITS
+========================= */
+
+.benefits{
+    width:92%;
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+
+    padding-bottom:80px;
+}
+
+.benefit{
+    border:1px solid #252525;
+    border-radius:15px;
+    padding:22px;
+    text-align:center;
+    background:#0d0d0d;
+}
+
+.benefit-icon{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.benefit h3{
+    font-family:'Cinzel',serif;
+    color:#d4af37;
+    font-size:15px;
+}
+
+.benefit p{
+    color:#777;
+    font-size:11px;
+    margin-top:5px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    border-top:1px solid #252525;
+    background:#080808;
+    padding:50px 6% 25px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-logo{
+    font-family:'Cinzel',serif;
+    font-size:25px;
+    color:#d4af37;
+}
+
+footer p{
+    color:#777;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.footer-title{
+    color:#d4af37;
+    font-family:'Cinzel',serif;
+    margin-bottom:12px;
+}
+
+.footer-links a{
+    display:block;
+    color:#777;
+    text-decoration:none;
+    font-size:13px;
+    margin:7px 0;
+}
+
+.footer-links a:hover{
+    color:#d4af37;
+}
+
+.copyright{
+    text-align:center;
+    color:#555;
+    font-size:11px;
+    margin-top:45px;
+    padding-top:20px;
+    border-top:1px solid #181818;
+}
+
+
+/* =========================
+   ORDER MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.8);
+    backdrop-filter:blur(8px);
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    z-index:99999;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.order-box{
+    width:100%;
+    max-width:480px;
+
+    max-height:90vh;
+    overflow-y:auto;
+
+    background:#101010;
+    border:1px solid #d4af37;
+    border-radius:22px;
+
+    padding:25px;
+
+    box-shadow:0 30px 80px rgba(0,0,0,.8);
+
+    animation:modalIn .35s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:scale(.9) translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+    font-family:'Cinzel',serif;
+    color:#d4af37;
+    font-size:22px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+
+    border:1px solid #444;
+    border-radius:50%;
+
+    background:#181818;
+    color:#fff;
+
+    cursor:pointer;
+    font-size:20px;
+}
+
+.selected-product{
+    background:#171717;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:18px;
+
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.selected-product strong{
+    color:#fff;
+}
+
+.selected-price{
+    color:#d4af37;
+    font-weight:bold;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    color:#bbb;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+
+    padding:13px;
+
+    background:#080808;
+    border:1px solid #333;
+    border-radius:10px;
+
+    color:white;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:#d4af37;
+}
+
+.form-group textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.quantity button{
+    width:38px;
+    height:38px;
+
+    border:1px solid #d4af37;
+    border-radius:50%;
+
+    background:#111;
+    color:#d4af37;
+
+    font-size:20px;
+    cursor:pointer;
+}
+
+.quantity input{
+    text-align:center;
+}
+
+.whatsapp-btn{
+    width:100%;
+    padding:15px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#20c968;
+    color:white;
+
+    font-weight:700;
+    font-size:14px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+
+    transition:.3s;
+}
+
+.whatsapp-btn:hover{
+    background:#16b558;
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   NO RESULT
+========================= */
+
+#noResult{
     display:none;
     text-align:center;
-    color:#aaa;
-    padding:30px;
+    color:#777;
+    padding:40px;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .benefits{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    nav{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    header{
+        padding:12px 15px;
+    }
+
+    .brand-name{
+        font-size:16px;
+    }
+
+    .brand-logo{
+        width:42px;
+        height:42px;
+    }
+
+    .hero{
+        min-height:580px;
+    }
+
+    .hero h1{
+        font-size:43px;
+    }
+
+    .products{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+        width:96%;
+    }
+
+    .product-image{
+        height:220px;
+    }
+
+    .product-info{
+        padding:12px 8px;
+    }
+
+    .product-info h3{
+        font-size:13px;
+    }
+
+    .price{
+        font-size:17px;
+    }
+
+    .order-btn{
+        font-size:11px;
+        padding:11px 5px;
+    }
+
+    .benefits{
+        grid-template-columns:1fr 1fr;
+        width:94%;
+    }
+
+    .benefit{
+        padding:15px 8px;
+    }
+
+    .section-title h2{
+        font-size:25px;
+    }
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- Opening Animation -->
+
+<!-- =========================
+     LOADER
+========================= -->
+
 <div id="loader">
-    <div class="loader-box">
-        <h1>RION SHOP</h1>
-        <p>WELCOME</p>
+
+    <div class="loader-content">
+
+        <div class="logo-animation">
+            <span>RS</span>
+        </div>
+
+        <div class="loader-title">
+            RION SHOP
+        </div>
+
+        <div class="loader-sub">
+            LUXURY • STYLE • QUALITY
+        </div>
+
+        <div class="loader-line"></div>
+
     </div>
+
 </div>
 
-<!-- Header -->
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-    <h1>WELCOME TO OUR SHOP</h1>
-    <p>Luxury • Style • Quality</p>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            RS
+        </div>
+
+        <div>
+            <div class="brand-name">
+                RION SHOP
+            </div>
+
+            <div class="brand-small">
+                LUXURY COLLECTION
+            </div>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+
+    </nav>
+
+    <div class="menu-btn">
+        ☰
+    </div>
+
 </header>
 
-<!-- Search -->
-<div class="search-area">
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="welcome">
+            WELCOME TO OUR SHOP
+        </div>
+
+        <h1>
+            RION <span>SHOP</span>
+        </h1>
+
+        <p>
+            Discover premium products with luxury style,
+            quality and fast delivery.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="gold-btn"
+                    onclick="document.getElementById('products').scrollIntoView()">
+                SHOP NOW →
+            </button>
+
+            <button class="dark-btn"
+                    onclick="document.getElementById('products').scrollIntoView()">
+                VIEW PRODUCTS
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="search-section">
+
     <input
-        type="text"
+        class="search"
         id="search"
-        placeholder="🔍 Search your product..."
+        type="text"
+        placeholder="🔍  Search your product..."
         onkeyup="searchProducts()"
     >
-</div>
-
-<!-- Products -->
-<div class="products" id="productList">
-
-    <div class="product">
-        <img src="product1.jpg" alt="Product 1">
-        <div class="product-info">
-            <h2>Luxury Product 1</h2>
-            <div class="price">৳ 1,250</div>
-        </div>
-    </div>
-
-    <div class="product">
-        <img src="product2.jpg" alt="Product 2">
-        <div class="product-info">
-            <h2>Luxury Product 2</h2>
-            <div class="price">৳ 1,500</div>
-        </div>
-    </div>
-
-    <div class="product">
-        <img src="product3.jpg" alt="Product 3">
-        <div class="product-info">
-            <h2>Luxury Product 3</h2>
-            <div class="price">৳ 1,850</div>
-        </div>
-    </div>
-
-    <div class="product">
-        <img src="product4.jpg" alt="Product 4">
-        <div class="product-info">
-            <h2>Luxury Product 4</h2>
-            <div class="price">৳ 2,000</div>
-        </div>
-    </div>
 
 </div>
 
-<div class="no-result" id="noResult">
-    No product found.
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<section id="products">
+
+    <div class="section-title">
+
+        <span>OUR COLLECTION</span>
+
+        <h2>Premium Products</h2>
+
+        <p>
+            Best Quality • Best Price • Fast Delivery
+        </p>
+
+    </div>
+
+
+    <div class="products" id="productList">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product1.jpg" alt="RION Hoodie">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Hoodie Set</h3>
+
+                <div class="price">
+                    ৳ 1,250
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Hoodie Set',1250)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product2.jpg" alt="RION T Shirt">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Premium T-Shirt</h3>
+
+                <div class="price">
+                    ৳ 750
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Premium T-Shirt',750)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product3.jpg" alt="Cargo Pant">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Cargo Pant Black</h3>
+
+                <div class="price">
+                    ৳ 1,450
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('Cargo Pant Black',1450)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 4 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product4.jpg" alt="Sneakers">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Sneakers</h3>
+
+                <div class="price">
+                    ৳ 2,150
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Sneakers',2150)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 5 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product5.jpg" alt="RION Watch">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Luxury Watch</h3>
+
+                <div class="price">
+                    ৳ 1,850
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Luxury Watch',1850)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 6 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product6.jpg" alt="RION Cap">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Premium Cap</h3>
+
+                <div class="price">
+                    ৳ 650
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Premium Cap',650)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 7 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product7.jpg" alt="Sunglasses">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Sunglasses</h3>
+
+                <div class="price">
+                    ৳ 950
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Sunglasses',950)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 8 -->
+
+        <div class="product">
+
+            <div class="product-image">
+                <img src="product8.jpg" alt="RION Sling Bag">
+            </div>
+
+            <div class="product-info">
+
+                <h3>RION Sling Bag</h3>
+
+                <div class="price">
+                    ৳ 1,250
+                </div>
+
+                <div class="rating">
+                    ★★★★★
+                </div>
+
+                <button class="order-btn"
+                    onclick="openOrder('RION Sling Bag',1250)">
+                    🛒 ORDER NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div id="noResult">
+        No product found.
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BENEFITS
+========================= -->
+
+<section id="about">
+
+    <div class="section-title">
+
+        <span>WHY CHOOSE US</span>
+
+        <h2>RION SHOP</h2>
+
+    </div>
+
+
+    <div class="benefits">
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🚚
+            </div>
+
+            <h3>Fast Delivery</h3>
+
+            <p>
+                Delivery all over Bangladesh
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🛡️
+            </div>
+
+            <h3>100% Quality</h3>
+
+            <p>
+                Premium quality products
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                💬
+            </div>
+
+            <h3>Easy Order</h3>
+
+            <p>
+                Order directly through WhatsApp
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🔒
+            </div>
+
+            <h3>Secure</h3>
+
+            <p>
+                Safe and simple ordering
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer id="contact">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <div class="footer-logo">
+                RION SHOP
+            </div>
+
+            <p>
+                Luxury • Style • Quality
+            </p>
+
+            <p>
+                Premium products at the best price.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <div class="footer-title">
+                QUICK LINKS
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="footer-title">
+                CONTACT
+            </div>
+
+            <p>
+                📱 01770775275
+            </p>
+
+            <p>
+                📲 WhatsApp Order Available
+            </p>
+
+            <p>
+                🇧🇩 Bangladesh
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 RION SHOP. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     ORDER MODAL
+========================= -->
+
+<div class="modal" id="orderModal">
+
+    <div class="order-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                RION SHOP
+            </h2>
+
+            <button class="close"
+                onclick="closeOrder()">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="selected-product">
+
+            <div>
+
+                <strong id="selectedProduct">
+                    Product
+                </strong>
+
+                <div style="color:#777;font-size:11px;margin-top:4px;">
+                    Your selected product
+                </div>
+
+            </div>
+
+            <div class="selected-price">
+                ৳ <span id="selectedPrice">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label>
+                👤 Customer Name *
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Enter your full name"
+            >
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label>
+                📞 Phone Number *
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="01XXXXXXXXX"
+            >
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group">
+
+            <label>
+                📍 Full Delivery Address *
+            </label>
+
+            <textarea
+                id="customerAddress"
+                placeholder="House, Road, Area, City, District..."
+            ></textarea>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="form-group">
+
+            <label>
+                🔢 Quantity *
+            </label>
+
+            <div class="quantity">
+
+                <button onclick="changeQuantity(-1)">
+                    −
+                </button>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    value="1"
+                    min="1"
+                    readonly
+                >
+
+                <button onclick="changeQuantity(1)">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTE -->
+
+        <div class="form-group">
+
+            <label>
+                📝 Additional Note
+            </label>
+
+            <textarea
+                id="customerNote"
+                placeholder="Size, color or any special instruction..."
+            ></textarea>
+
+        </div>
+
+
+        <button
+            class="whatsapp-btn"
+            onclick="sendWhatsApp()">
+
+            🟢 SEND ORDER ON WHATSAPP
+
+        </button>
+
+
+    </div>
+
 </div>
+
 
 <script>
+
+/* =========================
+   PAGE LOADER
+========================= */
+
+window.addEventListener("load",function(){
+
+    setTimeout(function(){
+
+        document.body.classList.add("loaded");
+
+    },2500);
+
+});
+
+
+/* =========================
+   SEARCH
+========================= */
+
 function searchProducts(){
 
-    let input = document
-        .getElementById("search")
+    let search =
+        document.getElementById("search")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
-    let products = document
-        .querySelectorAll(".product");
+    let products =
+        document.querySelectorAll(".product");
 
     let found = false;
 
     products.forEach(function(product){
 
-        let name = product
-            .querySelector("h2")
+        let name =
+            product.querySelector("h3")
             .innerText
             .toLowerCase();
 
-        if(name.includes(input)){
-            product.style.display = "block";
-            found = true;
+        if(name.includes(search)){
+
+            product.style.display="block";
+            found=true;
+
         }else{
-            product.style.display = "none";
+
+            product.style.display="none";
+
         }
 
     });
 
+
     document.getElementById("noResult").style.display =
         found ? "none" : "block";
+
 }
+
+
+/* =========================
+   ORDER VARIABLES
+========================= */
+
+let selectedProductName="";
+let selectedProductPrice=0;
+
+
+/* =========================
+   OPEN ORDER
+========================= */
+
+function openOrder(name,price){
+
+    selectedProductName=name;
+    selectedProductPrice=price;
+
+    document.getElementById("selectedProduct").innerText=name;
+
+    document.getElementById("selectedPrice").innerText=
+        price.toLocaleString();
+
+    document.getElementById("quantity").value=1;
+
+    document.getElementById("customerName").value="";
+    document.getElementById("customerPhone").value="";
+    document.getElementById("customerAddress").value="";
+    document.getElementById("customerNote").value="";
+
+    document.getElementById("orderModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================
+   CLOSE ORDER
+========================= */
+
+function closeOrder(){
+
+    document.getElementById("orderModal")
+        .classList.remove("show");
+
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+function changeQuantity(amount){
+
+    let input =
+        document.getElementById("quantity");
+
+    let current =
+        parseInt(input.value);
+
+    current += amount;
+
+    if(current < 1){
+        current=1;
+    }
+
+    input.value=current;
+
+}
+
+
+/* =========================
+   WHATSAPP ORDER
+========================= */
+
+function sendWhatsApp(){
+
+    let name =
+        document.getElementById("customerName")
+        .value.trim();
+
+    let phone =
+        document.getElementById("customerPhone")
+        .value.trim();
+
+    let address =
+        document.getElementById("customerAddress")
+        .value.trim();
+
+    let quantity =
+        document.getElementById("quantity")
+        .value;
+
+    let note =
+        document.getElementById("customerNote")
+        .value.trim();
+
+
+    /* REQUIRED INFORMATION */
+
+    if(name===""){
+
+        alert("Please enter your name.");
+
+        return;
+
+    }
+
+    if(phone===""){
+
+        alert("Please enter your phone number.");
+
+        return;
+
+    }
+
+    if(address===""){
+
+        alert("Please enter your full delivery address.");
+
+        return;
+
+    }
+
+
+    let total =
+        selectedProductPrice *
+        parseInt(quantity);
+
+
+    let message =
+        "🛍️ *RION SHOP - NEW ORDER*%0A"+
+        "━━━━━━━━━━━━━━━━━━%0A%0A"+
+
+        "📦 *Product:* "+
+        encodeURIComponent(selectedProductName)+
+        "%0A"+
+
+        "💰 *Price:* ৳ "+
+        selectedProductPrice.toLocaleString()+
+        "%0A"+
+
+        "🔢 *Quantity:* "+
+        quantity+
+        "%0A"+
+
+        "💵 *Total:* ৳ "+
+        total.toLocaleString()+
+        "%0A%0A"+
+
+        "👤 *Customer Name:* "+
+        encodeURIComponent(name)+
+        "%0A"+
+
+        "📞 *Phone:* "+
+        encodeURIComponent(phone)+
+        "%0A"+
+
+        "📍 *Delivery Address:* "+
+        encodeURIComponent(address)+
+        "%0A%0A"+
+
+        "📝 *Additional Note:* "+
+        encodeURIComponent(
+            note || "No additional note"
+        )+
+        "%0A%0A"+
+
+        "Please confirm my order. 🙏";
+
+
+    /*
+       YOUR WHATSAPP NUMBER
+       880 + 01770775275
+    */
+
+    let whatsappNumber =
+        "8801770775275";
+
+
+    let whatsappURL =
+        "https://wa.me/"+
+        whatsappNumber+
+        "?text="+
+        message;
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* =========================
+   CLICK OUTSIDE MODAL
+========================= */
+
+document.getElementById("orderModal")
+.addEventListener("click",function(event){
+
+    if(event.target === this){
+
+        closeOrder();
+
+    }
+
+});
+
 </script>
+
 
 </body>
 </html>
