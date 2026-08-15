@@ -1,130 +1,289 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RION LUXURY</title>
+
+<title>RION SHOP</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Georgia,"Times New Roman",serif;background:#080808;color:#fff}
-header{padding:22px 15px;text-align:center;background:#090909;border-bottom:1px solid #d4af37;position:sticky;top:0;z-index:10}
-.logo{font-size:30px;letter-spacing:5px;color:#d4af37;font-weight:bold}
-.tagline{margin-top:5px;color:#999;font-size:12px;letter-spacing:2px}
-.hero{text-align:center;padding:45px 18px;background:radial-gradient(circle,#28200b,#080808 65%)}
-.hero h1{font-size:34px;color:#d4af37;margin-bottom:10px}
-.hero p{color:#bbb;margin-bottom:22px}
-.btn{display:inline-block;padding:11px 24px;border:1px solid #d4af37;border-radius:25px;color:#d4af37;text-decoration:none}
-.products{max-width:1100px;margin:auto;padding:20px 12px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.product{background:#121212;border:1px solid #292929;border-radius:15px;overflow:hidden}
-.product img{width:100%;height:320px;object-fit:contain;display:block;background:#171717}
-.info{padding:14px}
-.info h2{font-size:17px;margin-bottom:7px}
-.price{color:#d4af37;font-size:19px;font-weight:bold;margin-bottom:12px}
-.order{display:block;text-align:center;padding:10px;background:#d4af37;color:#000;text-decoration:none;border-radius:8px;font-family:Arial,sans-serif;font-weight:bold}
-.about{text-align:center;margin:20px 12px;padding:25px;background:#111;border:1px solid #292929;border-radius:15px}
-.about h2{color:#d4af37;margin-bottom:8px}
-.about p{color:#aaa;line-height:1.6;font-size:14px}
-footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222}
-footer b{color:#d4af37}
-@media(min-width:800px){
- .products{grid-template-columns:repeat(4,1fr)}
- .product img{height:360px}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Georgia, "Times New Roman", serif;
+    background:#080808;
+    color:white;
+}
+
+/* Loading Animation */
+#loader{
+    position:fixed;
+    inset:0;
+    background:#080808;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    animation:hideLoader 1s ease 2.5s forwards;
+}
+
+.loader-box{
+    text-align:center;
+    animation:zoom 1.5s ease infinite alternate;
+}
+
+.loader-box h1{
+    font-size:38px;
+    letter-spacing:5px;
+    color:#d4af37;
+}
+
+.loader-box p{
+    margin-top:10px;
+    color:#aaa;
+    letter-spacing:3px;
+}
+
+@keyframes zoom{
+    from{transform:scale(.9);opacity:.5;}
+    to{transform:scale(1.05);opacity:1;}
+}
+
+@keyframes hideLoader{
+    to{
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+/* Header */
+header{
+    text-align:center;
+    padding:30px 15px 20px;
+    background:linear-gradient(180deg,#151515,#090909);
+    border-bottom:1px solid #333;
+}
+
+header h1{
+    font-size:35px;
+    letter-spacing:4px;
+    color:#d4af37;
+    animation:fadeDown 1.2s ease;
+}
+
+header p{
+    margin-top:8px;
+    color:#aaa;
+    letter-spacing:2px;
+}
+
+@keyframes fadeDown{
+    from{
+        opacity:0;
+        transform:translateY(-30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Search */
+.search-area{
+    padding:20px 15px;
+    display:flex;
+    justify-content:center;
+}
+
+#search{
+    width:100%;
+    max-width:550px;
+    padding:15px 20px;
+    border-radius:30px;
+    border:1px solid #d4af37;
+    background:#111;
+    color:white;
+    outline:none;
+    font-size:16px;
+}
+
+#search::placeholder{
+    color:#888;
+}
+
+/* Products */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    padding:25px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.product{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:15px;
+    overflow:hidden;
+    transition:.4s;
+    animation:productShow 1s ease;
+}
+
+.product:hover{
+    transform:translateY(-8px);
+    border-color:#d4af37;
+    box-shadow:0 10px 30px rgba(212,175,55,.2);
+}
+
+.product img{
+    width:100%;
+    height:280px;
+    object-fit:contain;
+    background:#fff;
+    display:block;
+}
+
+.product-info{
+    padding:18px;
+    text-align:center;
+}
+
+.product-info h2{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#d4af37;
+    font-size:19px;
+    font-weight:bold;
+}
+
+@keyframes productShow{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.no-result{
+    display:none;
+    text-align:center;
+    color:#aaa;
+    padding:30px;
 }
 </style>
 </head>
+
 <body>
+
+<!-- Opening Animation -->
+<div id="loader">
+    <div class="loader-box">
+        <h1>RION SHOP</h1>
+        <p>WELCOME</p>
+    </div>
+</div>
+
+<!-- Header -->
 <header>
-<div class="logo">RION LUXURY</div>
-<div class="tagline">ELEGANCE • STYLE • QUALITY</div>
+    <h1>WELCOME TO OUR SHOP</h1>
+    <p>Luxury • Style • Quality</p>
 </header>
 
-<section class="hero">
-<h1>Premium Denim Collection</h1>
-<p>আপনার পছন্দের জিন্স এক জায়গায়</p>
-<a class="btn" href="#products">SHOP NOW</a>
-</section>
-
-<section class="products" id="products">
-
-<div class="product">
-<img src="product1.jpg" alt="Classic Blue Wide Jeans">
-<div class="info">
-<h2>Classic Blue Wide Jeans</h2>
-<div class="price">৳ 1,250</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Classic%20Blue%20Wide%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C250" target="_blank">ORDER NOW</a>
-</div>
+<!-- Search -->
+<div class="search-area">
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search your product..."
+        onkeyup="searchProducts()"
+    >
 </div>
 
-<div class="product">
-<img src="product2.jpg" alt="Deep Navy Regular Jeans">
-<div class="info">
-<h2>Deep Navy Regular Jeans</h2>
-<div class="price">৳ 1,350</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Deep%20Navy%20Regular%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C350" target="_blank">ORDER NOW</a>
-</div>
+<!-- Products -->
+<div class="products" id="productList">
+
+    <div class="product">
+        <img src="product1.jpg" alt="Product 1">
+        <div class="product-info">
+            <h2>Luxury Product 1</h2>
+            <div class="price">৳ 1,250</div>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="product2.jpg" alt="Product 2">
+        <div class="product-info">
+            <h2>Luxury Product 2</h2>
+            <div class="price">৳ 1,500</div>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="product3.jpg" alt="Product 3">
+        <div class="product-info">
+            <h2>Luxury Product 3</h2>
+            <div class="price">৳ 1,850</div>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="product4.jpg" alt="Product 4">
+        <div class="product-info">
+            <h2>Luxury Product 4</h2>
+            <div class="price">৳ 2,000</div>
+        </div>
+    </div>
+
 </div>
 
-<div class="product">
-<img src="product3.jpg" alt="Premium White Wide Jeans">
-<div class="info">
-<h2>Premium White Wide Jeans</h2>
-<div class="price">৳ 1,450</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Premium%20White%20Wide%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C450" target="_blank">ORDER NOW</a>
-</div>
+<div class="no-result" id="noResult">
+    No product found.
 </div>
 
-<div class="product">
-<img src="product4.jpg" alt="White Denim Premium">
-<div class="info">
-<h2>White Denim Premium</h2>
-<div class="price">৳ 1,450</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20White%20Denim%20Premium%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C450" target="_blank">ORDER NOW</a>
-</div>
-</div>
+<script>
+function searchProducts(){
 
-<div class="product">
-<img src="product5.jpg" alt="Light Blue Baggy Jeans">
-<div class="info">
-<h2>Light Blue Baggy Jeans</h2>
-<div class="price">৳ 1,550</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Light%20Blue%20Baggy%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C550" target="_blank">ORDER NOW</a>
-</div>
-</div>
+    let input = document
+        .getElementById("search")
+        .value
+        .toLowerCase();
 
-<div class="product">
-<img src="product6.jpg" alt="NY Style Printed Jeans">
-<div class="info">
-<h2>NY Style Printed Jeans</h2>
-<div class="price">৳ 1,650</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20NY%20Style%20Printed%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C650" target="_blank">ORDER NOW</a>
-</div>
-</div>
+    let products = document
+        .querySelectorAll(".product");
 
-<div class="product">
-<img src="product7.jpg" alt="Premium Black Baggy Jeans">
-<div class="info">
-<h2>Premium Black Baggy Jeans</h2>
-<div class="price">৳ 1,550</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Premium%20Black%20Baggy%20Jeans%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C550" target="_blank">ORDER NOW</a>
-</div>
-</div>
+    let found = false;
 
-<div class="product">
-<img src="product8.jpg" alt="Classic Black Denim">
-<div class="info">
-<h2>Classic Black Denim</h2>
-<div class="price">৳ 1,450</div>
-<a class="order" href="https://wa.me/8801770775275?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20Classic%20Black%20Denim%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%20-%20%E0%A7%B3%201%2C450" target="_blank">ORDER NOW</a>
-</div>
-</div>
+    products.forEach(function(product){
 
-</section>
+        let name = product
+            .querySelector("h2")
+            .innerText
+            .toLowerCase();
 
-<section class="about">
-<h2>RION LUXURY</h2>
-<p>Premium quality denim collection. অর্ডারের জন্য WhatsApp-এ যোগাযোগ করুন।</p>
-</section>
+        if(name.includes(input)){
+            product.style.display = "block";
+            found = true;
+        }else{
+            product.style.display = "none";
+        }
 
-<footer>© 2026 <b>RION LUXURY</b> — All Rights Reserved</footer>
+    });
+
+    document.getElementById("noResult").style.display =
+        found ? "none" : "block";
+}
+</script>
+
 </body>
 </html>
