@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RION LUXURY</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Georgia, "Times New Roman", serif;
+    background:#080808;
+    color:white;
+}
+
+/* Header */
+header{
+    background:linear-gradient(135deg,#111,#050505);
+    padding:22px 18px;
+    text-align:center;
+    border-bottom:1px solid #c9a227;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:30px;
+    letter-spacing:5px;
+    color:#d4af37;
+    font-weight:bold;
+}
+
+.tagline{
+    font-size:12px;
+    color:#aaa;
+    margin-top:5px;
+    letter-spacing:2px;
+}
+
+/* Hero */
+.hero{
+    min-height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+    background:
+    radial-gradient(circle at center,#29200a 0%,#0b0b0b 55%,#050505 100%);
+}
+
+.hero h1{
+    font-size:38px;
+    color:#d4af37;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#ccc;
+    font-size:16px;
+    margin-bottom:25px;
+}
+
+.shop-btn{
+    display:inline-block;
+    padding:13px 28px;
+    border:1px solid #d4af37;
+    color:#d4af37;
+    text-decoration:none;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.shop-btn:hover{
+    background:#d4af37;
+    color:#000;
+}
+
+/* Products */
+.section-title{
+    text-align:center;
+    margin:35px 0 22px;
+}
+
+.section-title h2{
+    color:#d4af37;
+    font-size:26px;
+}
+
+.section-title p{
+    color:#888;
+    font-size:13px;
+    margin-top:6px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    padding:15px;
+    max-width:1100px;
+    margin:auto;
+}
+
+/* Product Card */
+.product{
+    background:linear-gradient(145deg,#171717,#0c0c0c);
+    border:1px solid #292929;
+    border-radius:16px;
+    overflow:hidden;
+    transition:.3s;
+    box-shadow:0 8px 25px rgba(0,0,0,.5);
+}
+
+.product:hover{
+    transform:translateY(-5px);
+    border-color:#d4af37;
+}
+
+.product img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+    background:#151515;
+}
+
+.info{
+    padding:14px;
+}
+
+.info h3{
+    font-size:17px;
+    color:#fff;
+    margin-bottom:7px;
+}
+
+.price{
+    color:#d4af37;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.order-btn{
+    display:block;
+    text-align:center;
+    background:#d4af37;
+    color:#050505;
+    text-decoration:none;
+    padding:10px;
+    border-radius:8px;
+    font-weight:bold;
+    font-family:Arial,sans-serif;
+}
+
+.order-btn:hover{
+    background:#fff;
+}
+
+/* About */
+.about{
+    margin:35px 15px;
+    padding:28px 20px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:16px;
+    text-align:center;
+}
+
+.about h2{
+    color:#d4af37;
+    margin-bottom:12px;
+}
+
+.about p{
+    color:#aaa;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:25px 15px;
+    margin-top:30px;
+    background:#050505;
+    border-top:1px solid #222;
+    color:#777;
+    font-size:13px;
+}
+
+footer strong{
+    color:#d4af37;
+}
+
+/* Mobile */
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+        padding:10px;
+    }
+
+    .product img{
+        height:180px;
+    }
+
+    .info{
+        padding:10px;
+    }
+
+    .info h3{
+        font-size:15px;
+    }
+
+    .price{
+        font-size:16px;
+    }
+
+    .order-btn{
+        font-size:13px;
+        padding:9px 5px;
+    }
+}
+
+/* Bigger screens */
+@media(min-width:800px){
+    .products{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .product img{
+        height:260px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">RION LUXURY</div>
+    <div class="tagline">ELEGANCE • STYLE • QUALITY</div>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Luxury Collection</h1>
+        <p>আপনার পছন্দের পণ্য এখন এক জায়গায়</p>
+        <a href="#products" class="shop-btn">SHOP NOW</a>
+    </div>
+</section>
+
+<div class="section-title" id="products">
+    <h2>Our Products</h2>
+    <p>Premium products for you</p>
+</div>
+
+<section class="products">
+
+    <!-- Product 1 -->
+    <div class="product">
+        <img src="product1.jpg" alt="Product 1">
+        <div class="info">
+            <h3>Luxury Product 01</h3>
+            <div class="price">৳ 1,250</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2001%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+        <img src="product2.jpg" alt="Product 2">
+        <div class="info">
+            <h3>Luxury Product 02</h3>
+            <div class="price">৳ 1,450</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2002%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product">
+        <img src="product3.jpg" alt="Product 3">
+        <div class="info">
+            <h3>Luxury Product 03</h3>
+            <div class="price">৳ 1,650</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2003%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product">
+        <img src="product4.jpg" alt="Product 4">
+        <div class="info">
+            <h3>Luxury Product 04</h3>
+            <div class="price">৳ 1,850</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2004%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product">
+        <img src="product5.jpg" alt="Product 5">
+        <div class="info">
+            <h3>Luxury Product 05</h3>
+            <div class="price">৳ 1,990</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2005%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product">
+        <img src="product6.jpg" alt="Product 6">
+        <div class="info">
+            <h3>Luxury Product 06</h3>
+            <div class="price">৳ 2,150</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2006%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product">
+        <img src="product7.jpg" alt="Product 7">
+        <div class="info">
+            <h3>Luxury Product 07</h3>
+            <div class="price">৳ 2,350</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2007%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product">
+        <img src="product8.jpg" alt="Product 8">
+        <div class="info">
+            <h3>Luxury Product 08</h3>
+            <div class="price">৳ 2,550</div>
+            <a class="order-btn"
+               href="https://wa.me/8801770775275?text=আমি%20Luxury%20Product%2008%20অর্ডার%20করতে%20চাই">
+               ORDER NOW
+            </a>
+        </div>
+    </div>
+
+</section>
+
+<section class="about">
+    <h2>About RION LUXURY</h2>
+    <p>
+        আমরা মানসম্মত ও আকর্ষণীয় পণ্য আপনার কাছে পৌঁছে দিতে কাজ করি।
+        আপনার পছন্দের পণ্যটি নির্বাচন করে সহজেই WhatsApp-এর মাধ্যমে অর্ডার করতে পারবেন।
+    </p>
+</section>
+
+<footer>
+    © 2026 <strong>RION LUXURY</strong> — All Rights Reserved
+</footer>
+
+</body>
+</html>
